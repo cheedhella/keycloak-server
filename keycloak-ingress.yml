@@ -10,9 +10,10 @@ spec:
     - host: keycloak.192.168.59.102.nip.io
       http:
         paths:
-          - backend:
+        - pathType: Prefix
+          path: "/"
+          backend:
               service:
                 name: keycloak
                 port:
                   number: 8080
-              
