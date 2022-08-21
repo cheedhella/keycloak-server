@@ -1,24 +1,24 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: keycloak
+  name: my-kc-service
   labels:
-    app: keycloak
+    app: my-kc-svc
 spec:
   ports:
   - name: http
-    port: 8080
-    targetPort: 8080
+    port: 8010
+    targetPort: 8011
   selector:
-    app: keycloak
+    app: my-kc-deployment
   type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: keycloak
+  name: my-keycloak-deployment
   labels:
-    app: keycloak
+    app: my-kc-deployment
 spec:
   replicas: 1
   selector:
@@ -42,7 +42,7 @@ spec:
           value: "edge"
         ports:
         - name: http
-          containerPort: 8080
+          containerPort: 8011
         readinessProbe:
           httpGet:
             path: /realms/master
