@@ -6,9 +6,9 @@ metadata:
     app: my-kc-svc
 spec:
   ports:
-  - name: http
-    port: 8010
-    targetPort: 8011
+    - name: http
+      port: 8010
+      targetPort: 8011
   selector:
     app: my-kc-deployment
   type: LoadBalancer
@@ -30,20 +30,20 @@ spec:
         app: keycloak
     spec:
       containers:
-      - name: keycloak
-        image: quay.io/keycloak/keycloak:19.0.1
-        args: ["start-dev"]
-        env:
-        - name: KEYCLOAK_ADMIN
-          value: "admin"
-        - name: KEYCLOAK_ADMIN_PASSWORD
-          value: "admin"
-        - name: KC_PROXY
-          value: "edge"
-        ports:
-        - name: http
-          containerPort: 8011
-        readinessProbe:
-          httpGet:
-            path: /realms/master
-            port: 8080
+        - name: keycloak
+          image: quay.io/keycloak/keycloak:19.0.1
+          args: ["start-dev"]
+          env:
+            - name: KEYCLOAK_ADMIN
+              value: "admin"
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: "admin"
+            - name: KC_PROXY
+              value: "edge"
+          ports:
+            - name: http
+              containerPort: 8011
+          readinessProbe:
+            httpGet:
+              path: /realms/master
+              port: 8080
